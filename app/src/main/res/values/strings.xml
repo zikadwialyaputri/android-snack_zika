@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ZDAP Dimsum</string>
+
+    <string name="my_project">MY PROJECT</string>
+    <string name="project_title">ZDAP Dimsum</string>
+    <string name="project_subtitle">Kenali lebih dekat makanan favoritmu 🥟</string>
+    <string name="food_category">DIMSUM</string>
+    <string name="food_description">Makanan kecil yang lezat, lembut, dan cocok dinikmati kapan saja.</string>
+    <string name="view_project">My Project</string>
+    <string name="dimsum_image_description">Gambar Dimsum</string>
+
+    <string name="dimsum_header">Dimsum</string>
+    <string name="dimsum_title">🥟 Dimsum</string>
+    <string name="dimsum_subtitle">Chinese Steamed Snack</string>
+    <string name="dimsum_description">Dimsum adalah makanan khas Tiongkok yang biasanya dibuat dari adonan tepung dan daging, kemudian dimasak dengan cara dikukus.</string>
+
+    <string name="nutrition_title">Informasi Gizi</string>
+    <string name="calorie">Kalori\n± 150 kkal</string>
+    <string name="protein">Protein\n± 8 gram</string>
+    <string name="fat">Lemak\n± 6 gram</string>
+    <string name="carbohydrate">Karbohidrat\n± 15 gram</string>
+
+    <string name="composition_title">Komposisi</string>
+    <string name="composition_content">Tepung • Daging ayam • Udang • Wortel • Daun bawang • Bumbu</string>
+
+    <string name="dimsum_footer">Makanan sehat tetap harus enak!</string>
+
+</resources>
