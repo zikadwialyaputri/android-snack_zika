@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lapangin_background"
+    tools:context=".BookingActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarBooking"
+        android:layout_width="0dp"
+        android:layout_height="58dp"
+        android:background="@color/lapangin_white"
+        android:elevation="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnBackBooking"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_gravity="start|center_vertical"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Kembali"
+            android:padding="10dp"
+            android:src="@drawable/ic_arrow_back"
+            android:tint="@color/lapangin_black" />
+
+        <TextView
+            android:id="@+id/tvBookingToolbarTitle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center_vertical"
+            android:text="Booking Lapangan"
+            android:textColor="@color/lapangin_black"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/tvFavorite"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_gravity="end|center_vertical"
+            android:gravity="center"
+            android:text="♡"
+            android:textColor="@color/lapangin_black"
+            android:textSize="29sp" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:id="@+id/scrollBooking"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        app:layout_constraintTop_toBottomOf="@id/toolbarBooking"
+        app:layout_constraintBottom_toTopOf="@id/bottomBookingNavigation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="24dp">
+
+            <TextView
+                android:id="@+id/tvBookingTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="GOR WIRA"
+                android:textColor="@color/lapangin_black"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/tvBookingSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="⌖ Jl. Siak, Gg. Melati, Pekanbaru, Riau"
+                android:textColor="@color/lapangin_gray"
+                android:textSize="11sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_marginTop="14dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvInformasi"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Informasi"
+                    android:textColor="@color/lapangin_green"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/tvFasilitas"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Fasilitas"
+                    android:textColor="@color/lapangin_gray"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/lapangin_green" />
+
+            <LinearLayout
+                android:id="@+id/infoBookingCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@color/lapangin_mint"
+                android:orientation="horizontal"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="48dp"
+                    android:layout_height="70dp"
+                    android:gravity="center"
+                    android:text="💡"
+                    android:textSize="32sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Lapangan olahraga indoor di area Pekanbaru yang digunakan untuk kegiatan bulu tangkis/futsal. Menggunakan lantai alas karpet dan penerangan lampu yang disesuaikan untuk area permainan."
+                    android:textColor="@color/lapangin_dark_green"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvTanggalLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Pilih Tanggal"
+                android:textColor="@color/lapangin_black"
+                android:textSize="17sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnTanggal"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/lapangin_white"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="start|center_vertical"
+                    android:paddingStart="14dp"
+                    android:text="Pilih tanggal"
+                    android:textAllCaps="false"
+                    android:textColor="@color/lapangin_black"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvJamLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Pilih Jam"
+                android:textColor="@color/lapangin_black"
+                android:textSize="17sp" />
+
+            <LinearLayout
+                android:id="@+id/timeRow1"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnJam08"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/lapangin_white"
+                    android:text="08:00"
+                    android:textAllCaps="false"
+                    android:textColor="@color/lapangin_green"
+                    android:textSize="11sp" />
+
+                <Button
+                    android:id="@+id/btnJam10"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/lapangin_white"
+                    android:text="10:00"
+                    android:textAllCaps="false"
+                    android:textColor="@color/lapangin_green"
+                    android:textSize="11sp" />
+
+                <Button
+                    android:id="@+id/btnJam13"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/lapangin_green"
+                    android:text="13:00"
+                    android:textAllCaps="false"
+                    android:textColor="@color/lapangin_white"
+                    android:textSize="11sp" />
+
+                <Button
+                    android:id="@+id/btnJam15"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/lapangin_white"
+                    android:text="15:00"
+                    android:textAllCaps="false"
+                    android:textColor="@color/lapangin_green"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/timeRow2"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnJam17"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/lapangin_white"
+                    android:text="17:00"
+                    android:textAllCaps="false"
+                    android:textColor="@color/lapangin_green"
+                    android:textSize="11sp" />
+
+                <Button
+                    android:id="@+id/btnJam19"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/lapangin_white"
+                    android:text="19:00"
+                    android:textAllCaps="false"
+                    android:textColor="@color/lapangin_green"
+                    android:textSize="11sp" />
+
+                <Button
+                    android:id="@+id/btnJam21"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/lapangin_white"
+                    android:text="21:00"
+                    android:textAllCaps="false"
+                    android:textColor="@color/lapangin_green"
+                    android:textSize="11sp" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/summaryCard"
+                android:layout_width="match_parent"
+                android:layout_height="76dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/card_lapangin"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <View
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:background="@color/lapangin_green_light" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvBookingNamaLapangan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="GOR WIRA"
+                        android:textColor="@color/lapangin_black"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/tvBookingLokasi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Senin, 10 Juni 2026"
+                        android:textColor="@color/lapangin_gray"
+                        android:textSize="9sp" />
+
+                    <TextView
+                        android:id="@+id/tvSummaryTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Jam belum dipilih"
+                        android:textColor="@color/lapangin_gray"
+                        android:textSize="9sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvTotalHarga"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Rp 60.000"
+                    android:textColor="@color/lapangin_green"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tvSummaryDate"
+                android:layout_width="1dp"
+                android:layout_height="1dp"
+                android:text="Tanggal belum dipilih"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btnKonfirmasi"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="12dp"
+                android:backgroundTint="@color/lapangin_green"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Lanjutkan Booking     >"
+                android:textAllCaps="false"
+                android:textColor="@color/lapangin_white"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/bottomBookingNavigation"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="@color/lapangin_white"
+        android:elevation="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="⌂"
+                android:textColor="@color/lapangin_gray"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Beranda"
+                android:textColor="@color/lapangin_gray"
+                android:textSize="9sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="▣"
+                android:textColor="@color/lapangin_green"
+                android:textSize="19sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Booking"
+                android:textColor="@color/lapangin_green"
+                android:textSize="9sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="▤"
+                android:textColor="@color/lapangin_gray"
+                android:textSize="19sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Riwayat"
+                android:textColor="@color/lapangin_gray"
+                android:textSize="9sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="♙"
+                android:textColor="@color/lapangin_gray"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profil"
+                android:textColor="@color/lapangin_gray"
+                android:textSize="9sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
