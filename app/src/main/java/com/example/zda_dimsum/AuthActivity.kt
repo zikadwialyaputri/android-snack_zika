@@ -48,7 +48,6 @@ class AuthActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
 
-                // Berpindah ke halaman utama
                 val intent = Intent(
                     this,
                     MainActivity::class.java

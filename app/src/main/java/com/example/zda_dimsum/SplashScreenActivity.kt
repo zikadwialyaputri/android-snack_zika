@@ -15,10 +15,8 @@ class SplashScreenActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash_screen)
 
         lifecycleScope.launch {
-            // Menampilkan splash screen selama 2 detik
             delay(2000)
 
-            // Membaca status login yang tersimpan
             val sharedPref = getSharedPreferences(
                 "user_pref",
                 MODE_PRIVATE
@@ -28,8 +26,6 @@ class SplashScreenActivity : AppCompatActivity() {
                 "isLogin",
                 false
             )
-
-            // Menentukan halaman tujuan
             val tujuan = if (isLogin) {
                 MainActivity::class.java
             } else {

@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
             "user_pref",
             MODE_PRIVATE
         )
+
         binding.btnMulai.setOnClickListener {
 
             val intent = Intent(
@@ -30,7 +31,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        /*
         binding.btnDeveloper.setOnClickListener {
 
             val intent = Intent(
@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity() {
 
             startActivity(intent)
         }
-        */
 
         binding.btnLogout.setOnClickListener {
 
@@ -51,19 +50,16 @@ class MainActivity : AppCompatActivity() {
                 .setNegativeButton("Tidak") { dialog, _ ->
                     dialog.dismiss()
                 }
-
                 .setPositiveButton("Ya") { dialog, _ ->
                     sharedPref.edit()
                         .clear()
                         .apply()
 
                     dialog.dismiss()
-
                     val intent = Intent(
                         this,
                         AuthActivity::class.java
                     )
-
                     intent.flags =
                         Intent.FLAG_ACTIVITY_NEW_TASK or
                                 Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -71,7 +67,6 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 }
-
                 .show()
         }
     }
