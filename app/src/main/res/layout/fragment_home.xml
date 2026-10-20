@@ -83,7 +83,7 @@
             <ImageView
                 android:layout_width="52dp"
                 android:layout_height="52dp"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/gor_wira"
                 android:scaleType="centerCrop" />
 
             <LinearLayout
@@ -130,7 +130,7 @@
             <ImageView
                 android:layout_width="52dp"
                 android:layout_height="52dp"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/gor_wira"
                 android:scaleType="centerCrop" />
 
             <LinearLayout
@@ -177,7 +177,7 @@
             <ImageView
                 android:layout_width="52dp"
                 android:layout_height="52dp"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/gor_wira"
                 android:scaleType="centerCrop" />
 
             <LinearLayout
@@ -329,7 +329,7 @@
             <ImageView
                 android:layout_width="55dp"
                 android:layout_height="55dp"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/gor_wira"
                 android:scaleType="centerCrop" />
 
             <LinearLayout

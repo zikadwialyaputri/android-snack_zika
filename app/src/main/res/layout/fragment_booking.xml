@@ -1,22 +1,449 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F7FBF8">
+    android:background="#F7FBF8"
+    android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/tvBookingTitle"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Booking Lapangan"
-        android:textColor="#176B35"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:paddingStart="20dp"
+        android:paddingTop="24dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="30dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tvBookingTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GOR WIRA"
+            android:textColor="#111111"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvBookingLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="Jl. Suka, Pekanbaru, Riau"
+            android:textColor="#777777"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvBookingTitle" />
+
+        <TextView
+            android:id="@+id/btnFavorite"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="♡"
+            android:textColor="#238B45"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvBookingTitle" />
+
+        <LinearLayout
+            android:id="@+id/layoutTab"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvBookingLocation">
+
+            <TextView
+                android:id="@+id/tvTabInformasi"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Informasi"
+                android:textColor="#238B45"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvTabFasilitas"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Fasilitas"
+                android:textColor="#888888"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/lineTab"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="#238B45"
+            app:layout_constraintEnd_toEndOf="@id/tvTabInformasi"
+            app:layout_constraintStart_toStartOf="@id/tvTabInformasi"
+            app:layout_constraintTop_toBottomOf="@id/layoutTab" />
+
+        <LinearLayout
+            android:id="@+id/cardInformation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_info"
+            android:orientation="horizontal"
+            android:padding="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lineTab">
+
+            <TextView
+                android:layout_width="35dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="💡"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/tvInformation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:text="Lapangan olahraga indoor di area Pekanbaru yang digunakan untuk kegiatan bulu tangkis. Menggunakan lantai khusus dan pencahayaan yang nyaman untuk aktivitas olahraga."
+                android:textColor="#39714B"
+                android:textSize="11sp"
+                android:lineSpacingExtra="2dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvPilihTanggal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Pilih Tanggal"
+            android:textColor="#212121"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardInformation" />
+
+        <TextView
+            android:id="@+id/tvLihatKalender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lihat Kalender ›"
+            android:textColor="#238B45"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/tvPilihTanggal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvPilihTanggal" />
+
+        <LinearLayout
+            android:id="@+id/layoutTanggalBooking"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvPilihTanggal">
+
+            <TextView
+                android:id="@+id/dateSen"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_date_selected"
+                android:gravity="center"
+                android:text="Sen\n10"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/dateSel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_date_normal"
+                android:gravity="center"
+                android:text="Sel\n11"
+                android:textColor="#238B45"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/dateRab"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_date_normal"
+                android:gravity="center"
+                android:text="Rab\n12"
+                android:textColor="#238B45"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/dateKam"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_date_normal"
+                android:gravity="center"
+                android:text="Kam\n13"
+                android:textColor="#238B45"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/dateJum"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_date_normal"
+                android:gravity="center"
+                android:text="Jum\n14"
+                android:textColor="#238B45"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/dateSab"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_date_normal"
+                android:gravity="center"
+                android:text="Sab\n15"
+                android:textColor="#238B45"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvPilihJam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Pilih Jam"
+            android:textColor="#212121"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutTanggalBooking" />
+
+        <LinearLayout
+            android:id="@+id/layoutJam1"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvPilihJam">
+
+            <TextView
+                android:id="@+id/time1400"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_time_normal"
+                android:gravity="center"
+                android:text="14:00"
+                android:textColor="#238B45"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/time1500"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginHorizontal="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_time_normal"
+                android:gravity="center"
+                android:text="15:00"
+                android:textColor="#238B45"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/time1600"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginHorizontal="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_time_selected"
+                android:gravity="center"
+                android:text="16:00"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/time1700"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_time_normal"
+                android:gravity="center"
+                android:text="17:00"
+                android:textColor="#238B45"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutJam2"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="2dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutJam1">
+
+            <TextView
+                android:id="@+id/time1800"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_time_normal"
+                android:gravity="center"
+                android:text="18:00"
+                android:textColor="#238B45"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/time1900"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginHorizontal="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_time_normal"
+                android:gravity="center"
+                android:text="19:00"
+                android:textColor="#238B45"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/time2000"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginHorizontal="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_time_normal"
+                android:gravity="center"
+                android:text="20:00"
+                android:textColor="#238B45"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/time2100"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_time_normal"
+                android:gravity="center"
+                android:text="21:00"
+                android:textColor="#238B45"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tvPilihan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:text="Pilihan"
+            android:textColor="#212121"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutJam2" />
+
+        <LinearLayout
+            android:id="@+id/cardPilihan"
+            android:layout_width="0dp"
+            android:layout_height="78dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_card"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvPilihan">
+
+            <ImageView
+                android:id="@+id/imgGorWira"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/gor_wira" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="GOR WIRA"
+                    android:textColor="#212121"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Senin, 10 Juni • 16:00"
+                    android:textColor="#777777"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvHarga"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rp 60.000"
+                android:textColor="#238B45"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/btnLanjutBooking"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/bg_button_green"
+            android:gravity="center"
+            android:text="Lanjutkan Booking   ›"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardPilihan" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
