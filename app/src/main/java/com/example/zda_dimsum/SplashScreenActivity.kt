@@ -1,4 +1,3 @@
-
 package com.example.zda_dimsum
 
 import android.content.Intent
@@ -15,8 +14,11 @@ class SplashScreenActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash_screen)
 
         lifecycleScope.launch {
+
+            // Menampilkan splash screen selama 2 detik
             delay(2000)
 
+            // Mengambil data login dari SharedPreferences
             val sharedPref = getSharedPreferences(
                 "user_pref",
                 MODE_PRIVATE
@@ -26,13 +28,20 @@ class SplashScreenActivity : AppCompatActivity() {
                 "isLogin",
                 false
             )
+
+            // Menentukan halaman tujuan berdasarkan status login
             val tujuan = if (isLogin) {
-                MainActivity::class.java
+                BaseActivity::class.java
             } else {
                 AuthActivity::class.java
             }
 
-            val intent = Intent(this@SplashScreenActivity, tujuan)
+            // Berpindah ke halaman tujuan
+            val intent = Intent(
+                this@SplashScreenActivity,
+                tujuan
+            )
+
             startActivity(intent)
             finish()
         }

@@ -1,723 +1,611 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/lapangin_background"
-    tools:context=".DimsumActivity">
+    android:fillViewport="true"
+    android:scrollbars="none">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarHome"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:background="@color/lapangin_white"
-        android:elevation="2dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageButton
-            android:id="@+id/btnBack"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_gravity="start|center_vertical"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Kembali"
-            android:padding="12dp"
-            android:src="@drawable/ic_arrow_back"
-            android:tint="@color/lapangin_dark_green" />
-
-        <TextView
-            android:id="@+id/tvToolbarTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="4dp"
-            android:fontFamily="@font/roboto_bold"
-            android:gravity="center_vertical"
-            android:text="Lapangin"
-            android:textColor="@color/lapangin_dark_green"
-            android:textSize="18sp" />
-
-    </androidx.appcompat.widget.Toolbar>
-
-    <ScrollView
-        android:id="@+id/scrollHome"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:fillViewport="true"
-        android:scrollbars="none"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbarHome">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="22dp"
+        android:paddingTop="24dp"
+        android:paddingEnd="22dp"
+        android:paddingBottom="30dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/layoutGreeting"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingStart="22dp"
-            android:paddingTop="20dp"
-            android:paddingEnd="22dp"
-            android:paddingBottom="20dp">
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/tvGreeting"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tvGreeting"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="Halo,"
-                        android:textColor="@color/lapangin_black"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/tvGreetingName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="Zika Dwi!"
-                        android:textColor="@color/lapangin_black"
-                        android:textSize="20sp" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/tvNotification"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:gravity="center"
-                    android:text="🔔"
-                    android:textColor="@color/lapangin_green"
-                    android:textSize="24sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/searchContainer"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/card_lapangin"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingStart="14dp"
-                android:paddingEnd="14dp">
-
-                <TextView
-                    android:id="@+id/tvSearchIcon"
-                    android:layout_width="32dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="⌕"
-                    android:textColor="@color/lapangin_green"
-                    android:textSize="23sp" />
-
-                <EditText
-                    android:id="@+id/etSearch"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:fontFamily="@font/roboto_regular"
-                    android:hint="Cari lapangan, lokasi, atau tanggal"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp"
-                    android:singleLine="true"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Halo,"
                     android:textColor="@color/lapangin_black"
-                    android:textColorHint="@color/lapangin_gray"
-                    android:textSize="12sp" />
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tvGreetingName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Zika Dwi!"
+                    android:textColor="@color/lapangin_black"
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tvNearbyTitle"
-                android:layout_width="match_parent"
+                android:id="@+id/tvNotification"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="🔔"
+                android:textColor="@color/lapangin_green"
+                android:textSize="24sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/searchContainer"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/card_lapangin"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutGreeting">
+
+            <TextView
+                android:id="@+id/tvSearchIcon"
+                android:layout_width="32dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="⌕"
+                android:textColor="@color/lapangin_green"
+                android:textSize="23sp" />
+
+            <EditText
+                android:id="@+id/etSearch"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/roboto_regular"
+                android:hint="Cari lapangan, lokasi, atau tanggal"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:singleLine="true"
+                android:textColor="@color/lapangin_black"
+                android:textColorHint="@color/lapangin_gray"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvNearbyTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Lokasi Terdekat"
+            android:textColor="@color/lapangin_black"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchContainer" />
+
+        <LinearLayout
+            android:id="@+id/cardWira"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/card_lapangin"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvNearbyTitle">
+
+            <View
+                android:layout_width="52dp"
+                android:layout_height="44dp"
+                android:background="@color/lapangin_green_light" />
+
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="GOR WIRA"
+                    android:textColor="@color/lapangin_black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Jl. Siak, Gg. Melati, Pekanbaru, Riau"
+                    android:textColor="@color/lapangin_gray"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/cardDinda"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/card_lapangin"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardWira">
+
+            <View
+                android:layout_width="52dp"
+                android:layout_height="44dp"
+                android:background="@color/lapangin_green_light" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="GOR DINDA"
+                    android:textColor="@color/lapangin_black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Jl. Melur, Gg. Melati, Pekanbaru, Riau"
+                    android:textColor="@color/lapangin_gray"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/cardLele"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/card_lapangin"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardDinda">
+
+            <View
+                android:layout_width="52dp"
+                android:layout_height="44dp"
+                android:background="@color/lapangin_green_light" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="GOR LELE"
+                    android:textColor="@color/lapangin_black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Jl. Riau, Gg. Melati, Pekanbaru, Riau"
+                    android:textColor="@color/lapangin_gray"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutDateHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardLele">
+
+            <TextView
+                android:id="@+id/tvDateTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:fontFamily="@font/roboto_bold"
-                android:text="Lokasi Terdekat"
+                android:text="Pilih Tanggal"
                 android:textColor="@color/lapangin_black"
                 android:textSize="17sp" />
 
-            <LinearLayout
-                android:id="@+id/cardWira"
-                android:layout_width="match_parent"
-                android:layout_height="58dp"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/card_lapangin"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp">
-
-                <!-- Placeholder gambar -->
-                <View
-                    android:layout_width="50dp"
-                    android:layout_height="42dp"
-                    android:background="@color/lapangin_green_light" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="GOR WIRA"
-                        android:textColor="@color/lapangin_black"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:fontFamily="@font/roboto_regular"
-                        android:text="Jl. Siak, Gg. Melati, Pekanbaru, Riau"
-                        android:textColor="@color/lapangin_gray"
-                        android:textSize="10sp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/cardDinda"
-                android:layout_width="match_parent"
-                android:layout_height="58dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/card_lapangin"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp">
-
-                <View
-                    android:layout_width="50dp"
-                    android:layout_height="42dp"
-                    android:background="@color/lapangin_green_light" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="GOR DINDA"
-                        android:textColor="@color/lapangin_black"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:fontFamily="@font/roboto_regular"
-                        android:text="Jl. Melur, Gg. Melati, Pekanbaru, Riau"
-                        android:textColor="@color/lapangin_gray"
-                        android:textSize="10sp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/cardLele"
-                android:layout_width="match_parent"
-                android:layout_height="58dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/card_lapangin"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp">
-
-                <View
-                    android:layout_width="50dp"
-                    android:layout_height="42dp"
-                    android:background="@color/lapangin_green_light" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="GOR LELE"
-                        android:textColor="@color/lapangin_black"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:fontFamily="@font/roboto_regular"
-                        android:text="Jl. Riau, Gg. Melati, Pekanbaru, Riau"
-                        android:textColor="@color/lapangin_gray"
-                        android:textSize="10sp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvCalendar"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="26dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:fontFamily="@font/roboto_bold"
+                android:text="Lihat Kalender >"
+                android:textColor="@color/lapangin_green"
+                android:textSize="11sp" />
 
-                <TextView
-                    android:id="@+id/tvDateTitle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/roboto_bold"
-                    android:text="Pilih Tanggal"
-                    android:textColor="@color/lapangin_black"
-                    android:textSize="17sp" />
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tvCalendar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_bold"
-                    android:text="Lihat Kalender >"
-                    android:textColor="@color/lapangin_green"
-                    android:textSize="11sp" />
-
-            </LinearLayout>
-
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:scrollbars="none">
-
-                <LinearLayout
-                    android:id="@+id/dateContainer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/lapangin_mint"
-                    android:orientation="horizontal"
-                    android:padding="8dp">
-
-                    <LinearLayout
-                        android:id="@+id/date1"
-                        android:layout_width="48dp"
-                        android:layout_height="72dp"
-                        android:background="@drawable/date_lapangin_selected"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="4dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_bold"
-                            android:text="Sen"
-                            android:textColor="@color/lapangin_white"
-                            android:textSize="11sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_bold"
-                            android:text="10"
-                            android:textColor="@color/lapangin_white"
-                            android:textSize="13sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Juni"
-                            android:textColor="@color/lapangin_white"
-                            android:textSize="9sp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/date2"
-                        android:layout_width="48dp"
-                        android:layout_height="72dp"
-                        android:layout_marginStart="8dp"
-                        android:background="@drawable/date_lapangin"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="4dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_bold"
-                            android:text="Sel"
-                            android:textColor="@color/lapangin_green"
-                            android:textSize="11sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_bold"
-                            android:text="11"
-                            android:textColor="@color/lapangin_green"
-                            android:textSize="13sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Juni"
-                            android:textColor="@color/lapangin_green"
-                            android:textSize="9sp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/date3"
-                        android:layout_width="48dp"
-                        android:layout_height="72dp"
-                        android:layout_marginStart="8dp"
-                        android:background="@drawable/date_lapangin"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="4dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_bold"
-                            android:text="Rab"
-                            android:textColor="@color/lapangin_green"
-                            android:textSize="11sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_bold"
-                            android:text="12"
-                            android:textColor="@color/lapangin_green"
-                            android:textSize="13sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Juni"
-                            android:textColor="@color/lapangin_green"
-                            android:textSize="9sp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/date4"
-                        android:layout_width="48dp"
-                        android:layout_height="72dp"
-                        android:layout_marginStart="8dp"
-                        android:background="@drawable/date_lapangin"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="4dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_bold"
-                            android:text="Kam"
-                            android:textColor="@color/lapangin_green"
-                            android:textSize="11sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_bold"
-                            android:text="13"
-                            android:textColor="@color/lapangin_green"
-                            android:textSize="13sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Juni"
-                            android:textColor="@color/lapangin_green"
-                            android:textSize="9sp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/date5"
-                        android:layout_width="48dp"
-                        android:layout_height="72dp"
-                        android:layout_marginStart="8dp"
-                        android:background="@drawable/date_lapangin"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="4dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_bold"
-                            android:text="Jum"
-                            android:textColor="@color/lapangin_green"
-                            android:textSize="11sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_bold"
-                            android:text="14"
-                            android:textColor="@color/lapangin_green"
-                            android:textSize="13sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Juni"
-                            android:textColor="@color/lapangin_green"
-                            android:textSize="9sp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/date6"
-                        android:layout_width="48dp"
-                        android:layout_height="72dp"
-                        android:layout_marginStart="8dp"
-                        android:background="@drawable/date_lapangin"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="4dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_bold"
-                            android:text="Sab"
-                            android:textColor="@color/lapangin_green"
-                            android:textSize="11sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_bold"
-                            android:text="15"
-                            android:textColor="@color/lapangin_green"
-                            android:textSize="13sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Juni"
-                            android:textColor="@color/lapangin_green"
-                            android:textSize="9sp" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </HorizontalScrollView>
+        <HorizontalScrollView
+            android:id="@+id/scrollDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutDateHeader">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:id="@+id/dateContainer"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="26dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tvRecommendation"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/roboto_bold"
-                    android:text="Rekomendasi Untukmu"
-                    android:textColor="@color/lapangin_black"
-                    android:textSize="17sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_bold"
-                    android:text="Lihat Semua >"
-                    android:textColor="@color/lapangin_green"
-                    android:textSize="11sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/cardLapangan"
-                android:layout_width="match_parent"
-                android:layout_height="68dp"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/card_lapangin"
-                android:gravity="center_vertical"
+                android:background="@color/lapangin_mint"
                 android:orientation="horizontal"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp">
-
-                <View
-                    android:layout_width="54dp"
-                    android:layout_height="48dp"
-                    android:background="@color/lapangin_green_light" />
+                android:padding="8dp">
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:id="@+id/date1"
+                    android:layout_width="48dp"
+                    android:layout_height="72dp"
+                    android:background="@drawable/date_lapangin_selected"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="4dp">
 
                     <TextView
-                        android:id="@+id/tvNamaLapangan"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_bold"
-                        android:text="GOR WIRA"
-                        android:textColor="@color/lapangin_black"
-                        android:textSize="15sp" />
+                        android:text="Sen"
+                        android:textColor="@color/lapangin_white"
+                        android:textSize="11sp" />
 
                     <TextView
-                        android:id="@+id/tvLokasiLapangan"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:fontFamily="@font/roboto_regular"
-                        android:text="Jl. Siak, Gg. Melati, Pekanbaru, Riau"
-                        android:textColor="@color/lapangin_gray"
-                        android:textSize="10sp" />
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="10"
+                        android:textColor="@color/lapangin_white"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Juni"
+                        android:textColor="@color/lapangin_white"
+                        android:textSize="9sp" />
 
                 </LinearLayout>
 
-            </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/date2"
+                    android:layout_width="48dp"
+                    android:layout_height="72dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/date_lapangin"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="4dp">
 
-            <Button
-                android:id="@+id/btnSmashBooking"
-                android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="Sel"
+                        android:textColor="@color/lapangin_green"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="11"
+                        android:textColor="@color/lapangin_green"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Juni"
+                        android:textColor="@color/lapangin_green"
+                        android:textSize="9sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/date3"
+                    android:layout_width="48dp"
+                    android:layout_height="72dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/date_lapangin"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="4dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="Rab"
+                        android:textColor="@color/lapangin_green"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="12"
+                        android:textColor="@color/lapangin_green"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Juni"
+                        android:textColor="@color/lapangin_green"
+                        android:textSize="9sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/date4"
+                    android:layout_width="48dp"
+                    android:layout_height="72dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/date_lapangin"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="4dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="Kam"
+                        android:textColor="@color/lapangin_green"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="13"
+                        android:textColor="@color/lapangin_green"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Juni"
+                        android:textColor="@color/lapangin_green"
+                        android:textSize="9sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/date5"
+                    android:layout_width="48dp"
+                    android:layout_height="72dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/date_lapangin"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="4dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="Jum"
+                        android:textColor="@color/lapangin_green"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="14"
+                        android:textColor="@color/lapangin_green"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Juni"
+                        android:textColor="@color/lapangin_green"
+                        android:textSize="9sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/date6"
+                    android:layout_width="48dp"
+                    android:layout_height="72dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/date_lapangin"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="4dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="Sab"
+                        android:textColor="@color/lapangin_green"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="15"
+                        android:textColor="@color/lapangin_green"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Juni"
+                        android:textColor="@color/lapangin_green"
+                        android:textSize="9sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <LinearLayout
+            android:id="@+id/layoutRecommendationHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/scrollDate">
+
+            <TextView
+                android:id="@+id/tvRecommendation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Rekomendasi Untukmu"
+                android:textColor="@color/lapangin_black"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvSeeAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Lihat Semua >"
+                android:textColor="@color/lapangin_green"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/cardLapangan"
+            android:layout_width="0dp"
+            android:layout_height="68dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/card_lapangin"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutRecommendationHeader">
+
+            <View
+                android:layout_width="54dp"
                 android:layout_height="48dp"
-                android:layout_marginTop="14dp"
-                android:backgroundTint="@color/lapangin_green"
-                android:fontFamily="@font/roboto_bold"
-                android:text="Info Smash Booking"
-                android:textAllCaps="false"
-                android:textColor="@color/lapangin_white"
-                android:textSize="13sp" />
+                android:background="@color/lapangin_green_light" />
 
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvNamaLapangan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="GOR WIRA"
+                    android:textColor="@color/lapangin_black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tvLokasiLapangan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Jl. Siak, Gg. Melati, Pekanbaru, Riau"
+                    android:textColor="@color/lapangin_gray"
+                    android:textSize="10sp" />
+            </LinearLayout>
         </LinearLayout>
 
-    </ScrollView>
-
-    <LinearLayout
-        android:id="@+id/bottomNavigation"
-        android:layout_width="0dp"
-        android:layout_height="68dp"
-        android:background="@color/lapangin_white"
-        android:elevation="8dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <LinearLayout
-            android:id="@+id/navHome"
+        <Button
+            android:id="@+id/btnSmashBooking"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="⌂"
-                android:textColor="@color/lapangin_green"
-                android:textSize="22sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_bold"
-                android:text="Beranda"
-                android:textColor="@color/lapangin_green"
-                android:textSize="10sp" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/navBooking"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="▣"
-                android:textColor="@color/lapangin_gray"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_regular"
-                android:text="Booking"
-                android:textColor="@color/lapangin_gray"
-                android:textSize="10sp" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/navProfile"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="♙"
-                android:textColor="@color/lapangin_gray"
-                android:textSize="21sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_regular"
-                android:text="Profil"
-                android:textColor="@color/lapangin_gray"
-                android:textSize="10sp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="48dp"
+            android:layout_marginTop="14dp"
+            android:backgroundTint="@color/lapangin_green"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Info Smash Booking"
+            android:textAllCaps="false"
+            android:textColor="@color/lapangin_white"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardLapangan" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
