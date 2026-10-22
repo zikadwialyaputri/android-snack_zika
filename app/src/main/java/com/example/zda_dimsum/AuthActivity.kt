@@ -1,3 +1,4 @@
+
 package com.example.zda_dimsum
 
 import android.content.Intent
@@ -21,6 +22,12 @@ class AuthActivity : AppCompatActivity() {
             "user_pref",
             MODE_PRIVATE
         )
+
+        binding.btnRegister.setOnClickListener {
+            startActivity(
+                Intent(this, RegistrationActivity::class.java)
+            )
+        }
 
         binding.btnLogin.setOnClickListener {
 
@@ -49,7 +56,6 @@ class AuthActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
 
-                // Setelah login berhasil masuk ke BaseActivity
                 val intent = Intent(
                     this,
                     BaseActivity::class.java
@@ -62,7 +68,7 @@ class AuthActivity : AppCompatActivity() {
 
                 AlertDialog.Builder(this)
                     .setTitle("Login Gagal")
-                    .setMessage("Silahkan coba lagi")
+                    .setMessage("Silakan coba lagi")
                     .setPositiveButton("OK", null)
                     .show()
             }

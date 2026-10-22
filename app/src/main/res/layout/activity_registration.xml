@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F3F8F4"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/tvJudulRegistrasi"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Registrasi Akun"
+        android:textColor="#176B43"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tvSubjudulRegistrasi"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Silakan lengkapi data diri kamu"
+        android:textColor="#666666"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:layout_marginTop="6dp"
+        app:layout_constraintTop_toBottomOf="@id/tvJudulRegistrasi"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tvLabelNama"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Nama Lengkap"
+        android:textColor="#333333"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/tvSubjudulRegistrasi"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/etNama"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:hint="Masukkan nama lengkap"
+        android:inputType="textPersonName"
+        android:singleLine="true"
+        android:paddingHorizontal="12dp"
+        app:layout_constraintTop_toBottomOf="@id/tvLabelNama"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tvLabelEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:textColor="#333333"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/etNama"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:hint="Masukkan email"
+        android:inputType="textEmailAddress"
+        android:singleLine="true"
+        android:paddingHorizontal="12dp"
+        app:layout_constraintTop_toBottomOf="@id/tvLabelEmail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tvLabelTanggalLahir"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Tanggal Lahir"
+        android:textColor="#333333"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/etEmail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTanggalLahir"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:background="#FFFFFF"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="12dp"
+        android:text="Pilih tanggal lahir"
+        android:textColor="#555555"
+        app:layout_constraintTop_toBottomOf="@id/tvLabelTanggalLahir"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnPilihTanggal" />
+
+    <Button
+        android:id="@+id/btnPilihTanggal"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:text="Pilih"
+        android:backgroundTint="#238348"
+        app:layout_constraintTop_toTopOf="@id/tvTanggalLahir"
+        app:layout_constraintBottom_toBottomOf="@id/tvTanggalLahir"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tvLabelJenisKelamin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Jenis Kelamin"
+        android:textColor="#333333"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/tvTanggalLahir"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/rgJenisKelamin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/tvLabelJenisKelamin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <RadioButton
+            android:id="@+id/rbLakiLaki"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Laki-laki" />
+
+        <RadioButton
+            android:id="@+id/rbPerempuan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Perempuan" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/tvLabelUsername"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Username"
+        android:textColor="#333333"
+        android:layout_marginTop="6dp"
+        app:layout_constraintTop_toBottomOf="@id/rgJenisKelamin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/etUsername"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:hint="Buat username"
+        android:inputType="text"
+        android:singleLine="true"
+        android:paddingHorizontal="12dp"
+        app:layout_constraintTop_toBottomOf="@id/tvLabelUsername"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tvLabelPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Password"
+        android:textColor="#333333"
+        android:layout_marginTop="6dp"
+        app:layout_constraintTop_toBottomOf="@id/etUsername"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:hint="Buat password"
+        android:inputType="textPassword"
+        android:singleLine="true"
+        android:paddingHorizontal="12dp"
+        app:layout_constraintTop_toBottomOf="@id/tvLabelPassword"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tvLabelConfirmPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Confirm Password"
+        android:textColor="#333333"
+        android:layout_marginTop="6dp"
+        app:layout_constraintTop_toBottomOf="@id/etPassword"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/etConfirmPassword"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:hint="Ulangi password"
+        android:inputType="textPassword"
+        android:singleLine="true"
+        android:paddingHorizontal="12dp"
+        app:layout_constraintTop_toBottomOf="@id/tvLabelConfirmPassword"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btnSelanjutnya"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="#238348"
+        android:text="Selanjutnya"
+        android:textColor="#FFFFFF"
+        app:layout_constraintTop_toBottomOf="@id/etConfirmPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
