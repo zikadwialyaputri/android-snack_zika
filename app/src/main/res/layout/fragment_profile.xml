@@ -14,19 +14,14 @@
         android:layout_height="wrap_content"
         android:paddingBottom="30dp">
 
-        <!-- ========================= -->
-        <!-- HEADER PROFILE -->
-        <!-- ========================= -->
-
         <View
             android:id="@+id/profileHeader"
             android:layout_width="0dp"
-            android:layout_height="175dp"
+            android:layout_height="195dp"
             android:background="@drawable/bg_profile_header"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
 
         <TextView
             android:id="@+id/tvProfileTitle"
@@ -41,24 +36,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-        <!-- Avatar sementara -->
-
-        <TextView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imgProfile"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:layout_marginTop="18dp"
+            android:layout_width="82dp"
+            android:layout_height="82dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/bg_profile_avatar"
-            android:gravity="center"
-            android:text="ZD"
-            android:textColor="#FFFFFF"
-            android:textSize="22sp"
-            android:textStyle="bold"
+            android:clickable="true"
+            android:contentDescription="Foto Profil"
+            android:elevation="2dp"
+            android:focusable="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_profile"
+            app:shapeAppearanceOverlay="@style/CircleImageView"
+            app:strokeColor="#FFFFFF"
+            app:strokeWidth="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvProfileTitle" />
-
 
         <TextView
             android:id="@+id/tvProfileName"
@@ -72,11 +67,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imgProfile" />
-
-
-        <!-- ========================= -->
-        <!-- STATISTIK -->
-        <!-- ========================= -->
 
         <LinearLayout
             android:id="@+id/cardStats"
@@ -92,8 +82,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/profileHeader">
-
-            <!-- TOTAL BOOKING -->
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -121,14 +109,10 @@
 
             </LinearLayout>
 
-
             <View
                 android:layout_width="1dp"
                 android:layout_height="45dp"
                 android:background="#E2E8E3" />
-
-
-            <!-- SELESAI -->
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -155,14 +139,10 @@
 
             </LinearLayout>
 
-
             <View
                 android:layout_width="1dp"
                 android:layout_height="45dp"
                 android:background="#E2E8E3" />
-
-
-            <!-- AKAN DATANG -->
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -192,11 +172,6 @@
 
         </LinearLayout>
 
-
-        <!-- ========================= -->
-        <!-- MENU PROFILE -->
-        <!-- ========================= -->
-
         <LinearLayout
             android:id="@+id/layoutMenuProfile"
             android:layout_width="0dp"
@@ -208,9 +183,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardStats">
-
-
-            <!-- DATA LAPANGAN -->
 
             <LinearLayout
                 android:id="@+id/menuDataLapangan"
@@ -248,9 +220,6 @@
                     android:textSize="24sp" />
 
             </LinearLayout>
-
-
-            <!-- METODE PEMBAYARAN -->
 
             <LinearLayout
                 android:id="@+id/menuPembayaran"
@@ -291,9 +260,6 @@
 
             </LinearLayout>
 
-
-            <!-- FAVORIT -->
-
             <LinearLayout
                 android:id="@+id/menuFavorit"
                 android:layout_width="match_parent"
@@ -331,9 +297,6 @@
                     android:textSize="24sp" />
 
             </LinearLayout>
-
-
-            <!-- BANTUAN -->
 
             <LinearLayout
                 android:id="@+id/menuBantuan"
@@ -373,9 +336,6 @@
                     android:textSize="24sp" />
 
             </LinearLayout>
-
-
-            <!-- TENTANG -->
 
             <LinearLayout
                 android:id="@+id/menuTentang"
@@ -417,11 +377,6 @@
 
         </LinearLayout>
 
-
-        <!-- ========================= -->
-        <!-- LOGOUT -->
-        <!-- ========================= -->
-
         <TextView
             android:id="@+id/btnLogout"
             android:layout_width="0dp"
@@ -437,8 +392,10 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutMenuProfile" />
+            app:layout_constraintTop_toBottomOf="@id/layoutMenuProfile"
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

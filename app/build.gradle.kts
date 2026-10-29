@@ -35,6 +35,7 @@ android {
 }
 
 dependencies {
+    implementation("androidx.activity:activity-ktx:1.10.1")
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.constraintlayout)
