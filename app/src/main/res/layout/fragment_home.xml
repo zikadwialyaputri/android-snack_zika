@@ -4,16 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:background="#F7FBF8">
+    android:background="#F7FBF8"
+    android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:paddingTop="24dp"
-        android:paddingBottom="30dp">
+        android:padding="20dp">
 
         <!-- SAPAAN -->
         <TextView
@@ -21,37 +18,131 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Halo,"
-            android:textColor="#212121"
+            android:textColor="#555555"
             android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
             android:id="@+id/tvNama"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Zika Dwi!"
-            android:textColor="#111111"
-            android:textSize="20sp"
+            android:textColor="#174B31"
+            android:textSize="21sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvHalo" />
+            app:layout_constraintTop_toBottomOf="@id/tvHalo"
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <!-- SEARCH -->
         <EditText
             android:id="@+id/etSearch"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="50dp"
             android:layout_marginTop="18dp"
             android:background="@drawable/bg_search"
-            android:hint="Cari lapangan, lokasi atau tanggal"
+            android:hint="Cari lapangan badminton..."
+            android:inputType="text"
+            android:singleLine="true"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:singleLine="true"
             android:textSize="13sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvNama"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvNama" />
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- JUDUL GRID -->
+        <TextView
+            android:id="@+id/tvKategori"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Fasilitas Badminton"
+            android:textColor="#212121"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/etSearch"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <!-- GRID 2 KOLOM -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/gridKategori"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@id/tvKategori"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/tvIndoor"
+                android:layout_width="0dp"
+                android:layout_height="85dp"
+                android:layout_marginEnd="6dp"
+                android:background="@drawable/bg_home_green"
+                android:gravity="center"
+                android:text="🏸&#10;Indoor"
+                android:textColor="#176B3A"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tvOutdoor"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvOutdoor"
+                android:layout_width="0dp"
+                android:layout_height="85dp"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/bg_home_green"
+                android:gravity="center"
+                android:text="🏸&#10;Outdoor"
+                android:textColor="#176B3A"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@id/tvIndoor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvParkir"
+                android:layout_width="0dp"
+                android:layout_height="85dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="6dp"
+                android:background="@drawable/bg_home_green"
+                android:gravity="center"
+                android:text="🅿️&#10;Area Parkir"
+                android:textColor="#176B3A"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tvRuangGanti"
+                app:layout_constraintTop_toBottomOf="@id/tvIndoor"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvRuangGanti"
+                android:layout_width="0dp"
+                android:layout_height="85dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/bg_home_green"
+                android:gravity="center"
+                android:text="🚿&#10;Ruang Ganti"
+                android:textColor="#176B3A"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@id/tvParkir"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvOutdoor"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- LOKASI TERDEKAT -->
         <TextView
@@ -63,149 +154,155 @@
             android:textColor="#212121"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etSearch" />
+            app:layout_constraintTop_toBottomOf="@id/gridKategori"
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <!-- GOR WIRA -->
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cardWira"
             android:layout_width="0dp"
-            android:layout_height="70dp"
+            android:layout_height="75dp"
             android:layout_marginTop="12dp"
             android:background="@drawable/bg_card"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
             android:padding="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvLokasi"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvLokasi">
+            app:layout_constraintEnd_toEndOf="parent">
 
             <ImageView
-                android:layout_width="52dp"
-                android:layout_height="52dp"
+                android:id="@+id/imgWira"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
                 android:src="@drawable/gor_wira"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                android:contentDescription="GOR WIRA"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/tvWira"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:text="GOR WIRA"
+                android:textColor="#212121"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="@id/imgWira"
+                app:layout_constraintStart_toEndOf="@id/imgWira"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="GOR WIRA"
-                    android:textColor="#212121"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Jl. Suka, Pekanbaru, Riau"
+                android:textColor="#777777"
+                android:textSize="11sp"
+                app:layout_constraintTop_toBottomOf="@id/tvWira"
+                app:layout_constraintStart_toStartOf="@id/tvWira"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Jl. Suka, Pekanbaru, Riau"
-                    android:textColor="#7A7A7A"
-                    android:textSize="11sp" />
-
-            </LinearLayout>
-
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- GOR DINDA -->
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cardDinda"
             android:layout_width="0dp"
-            android:layout_height="70dp"
+            android:layout_height="75dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/bg_card"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
             android:padding="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardWira"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardWira">
+            app:layout_constraintEnd_toEndOf="parent">
 
             <ImageView
-                android:layout_width="52dp"
-                android:layout_height="52dp"
+                android:id="@+id/imgDinda"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
                 android:src="@drawable/gor_wira"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                android:contentDescription="GOR DINDA"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/tvDinda"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:text="GOR DINDA"
+                android:textColor="#212121"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="@id/imgDinda"
+                app:layout_constraintStart_toEndOf="@id/imgDinda"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="GOR DINDA"
-                    android:textColor="#212121"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Jl. Melur, Pekanbaru, Riau"
+                android:textColor="#777777"
+                android:textSize="11sp"
+                app:layout_constraintTop_toBottomOf="@id/tvDinda"
+                app:layout_constraintStart_toStartOf="@id/tvDinda"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Jl. Melur, Pekanbaru, Riau"
-                    android:textColor="#7A7A7A"
-                    android:textSize="11sp" />
-
-            </LinearLayout>
-
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- GOR LELE -->
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cardLele"
             android:layout_width="0dp"
-            android:layout_height="70dp"
+            android:layout_height="75dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/bg_card"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
             android:padding="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardDinda"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardDinda">
+            app:layout_constraintEnd_toEndOf="parent">
 
             <ImageView
-                android:layout_width="52dp"
-                android:layout_height="52dp"
+                android:id="@+id/imgLele"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
                 android:src="@drawable/gor_wira"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                android:contentDescription="GOR LELE"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/tvLele"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:text="GOR LELE"
+                android:textColor="#212121"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="@id/imgLele"
+                app:layout_constraintStart_toEndOf="@id/imgLele"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="GOR LELE"
-                    android:textColor="#212121"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Jl. Karya, Pekanbaru, Riau"
+                android:textColor="#777777"
+                android:textSize="11sp"
+                app:layout_constraintTop_toBottomOf="@id/tvLele"
+                app:layout_constraintStart_toStartOf="@id/tvLele"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Jl. Karya, Pekanbaru, Riau"
-                    android:textColor="#7A7A7A"
-                    android:textSize="11sp" />
-
-            </LinearLayout>
-
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- PILIH TANGGAL -->
         <TextView
@@ -217,87 +314,119 @@
             android:textColor="#212121"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardLele" />
+            app:layout_constraintTop_toBottomOf="@id/cardLele"
+            app:layout_constraintStart_toStartOf="parent"/>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutTanggal"
             android:layout_width="0dp"
             android:layout_height="65dp"
             android:layout_marginTop="12dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTanggal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvTanggal">
+            app:layout_constraintEnd_toEndOf="parent">
 
             <TextView
+                android:id="@+id/tanggal1"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:layout_marginEnd="4dp"
-                android:layout_weight="1"
                 android:background="@drawable/bg_date_selected"
                 android:gravity="center"
-                android:text="Sen\n10"
+                android:text="Sen&#10;10"
                 android:textColor="#FFFFFF"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tanggal2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <TextView
+                android:id="@+id/tanggal2"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_date_normal"
-                android:gravity="center"
-                android:text="Sel\n11"
-                android:textColor="#238B45"
-                android:textSize="12sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_date_normal"
-                android:gravity="center"
-                android:text="Rab\n12"
-                android:textColor="#238B45"
-                android:textSize="12sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_date_normal"
-                android:gravity="center"
-                android:text="Kam\n13"
-                android:textColor="#238B45"
-                android:textSize="12sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_date_normal"
-                android:gravity="center"
-                android:text="Jum\n14"
-                android:textColor="#238B45"
-                android:textSize="12sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:layout_marginStart="4dp"
-                android:layout_weight="1"
+                android:layout_marginEnd="4dp"
                 android:background="@drawable/bg_date_normal"
                 android:gravity="center"
-                android:text="Sab\n15"
+                android:text="Sel&#10;11"
                 android:textColor="#238B45"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@id/tanggal1"
+                app:layout_constraintEnd_toStartOf="@id/tanggal3"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/tanggal3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/bg_date_normal"
+                android:gravity="center"
+                android:text="Rab&#10;12"
+                android:textColor="#238B45"
+                android:textSize="12sp"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@id/tanggal2"
+                app:layout_constraintEnd_toStartOf="@id/tanggal4"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/tanggal4"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/bg_date_normal"
+                android:gravity="center"
+                android:text="Kam&#10;13"
+                android:textColor="#238B45"
+                android:textSize="12sp"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@id/tanggal3"
+                app:layout_constraintEnd_toStartOf="@id/tanggal5"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/tanggal5"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/bg_date_normal"
+                android:gravity="center"
+                android:text="Jum&#10;14"
+                android:textColor="#238B45"
+                android:textSize="12sp"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@id/tanggal4"
+                app:layout_constraintEnd_toStartOf="@id/tanggal6"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/tanggal6"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="4dp"
+                android:background="@drawable/bg_date_normal"
+                android:gravity="center"
+                android:text="Sab&#10;15"
+                android:textColor="#238B45"
+                android:textSize="12sp"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@id/tanggal5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- REKOMENDASI -->
         <TextView
@@ -305,59 +434,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Rekomendasi Untukmu"
+            android:text="Rekomendasi Lapangan Badminton"
             android:textColor="#212121"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutTanggal" />
+            app:layout_constraintTop_toBottomOf="@id/layoutTanggal"
+            app:layout_constraintStart_toStartOf="parent"/>
 
-        <LinearLayout
-            android:id="@+id/cardRekomendasi"
+        <!-- RECYCLERVIEW -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvLapangan"
             android:layout_width="0dp"
-            android:layout_height="75dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:background="@drawable/bg_card"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:nestedScrollingEnabled="false"
+            android:clipToPadding="false"
+            android:paddingBottom="8dp"
+            app:layout_constraintTop_toBottomOf="@id/tvRekomendasi"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvRekomendasi">
-
-            <ImageView
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                android:src="@drawable/gor_wira"
-                android:scaleType="centerCrop" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="GOR WIRA"
-                    android:textColor="#212121"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Jl. Suka, Pekanbaru, Riau"
-                    android:textColor="#7A7A7A"
-                    android:textSize="11sp" />
-
-            </LinearLayout>
-
-        </LinearLayout>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -35,6 +35,8 @@ android {
 }
 
 dependencies {
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("androidx.viewpager2:viewpager2:1.1.0")
     implementation("androidx.activity:activity-ktx:1.10.1")
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.appcompat)
