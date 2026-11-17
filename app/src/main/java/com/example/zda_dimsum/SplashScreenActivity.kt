@@ -13,12 +13,11 @@ class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Menampilkan desain Splash Screen Lapangin
         setContentView(R.layout.activity_splash_screen)
 
         lifecycleScope.launch {
 
-            // Splash Screen tampil selama 2 detik
+            // Menampilkan splash screen selama 2 detik
             delay(2000)
 
             // Mengecek apakah onboarding sudah selesai
@@ -32,7 +31,7 @@ class SplashScreenActivity : AppCompatActivity() {
                 false
             )
 
-            // Mengecek apakah pengguna sudah login
+            // Mengecek status login
             val loginPref = getSharedPreferences(
                 "user_pref",
                 MODE_PRIVATE
@@ -45,32 +44,15 @@ class SplashScreenActivity : AppCompatActivity() {
 
             // Menentukan halaman tujuan
             val tujuan = when {
-
-                // Pengguna belum menyelesaikan onboarding
-                !sudahOnboarding -> {
-                    OnboardingActivity::class.java
-                }
-
-                // Sudah onboarding dan sudah login
-                isLogin -> {
-                    BaseActivity::class.java
-                }
-
-                // Sudah onboarding tetapi belum login
-                else -> {
-                    AuthActivity::class.java
-                }
+                !sudahOnboarding -> OnboardingActivity::class.java
+                isLogin -> BaseActivity::class.java
+                else -> AuthActivity::class.java
             }
 
-            // Membuka halaman tujuan
-            val intent = Intent(
-                this@SplashScreenActivity,
-                tujuan
+            startActivity(
+                Intent(this@SplashScreenActivity, tujuan)
             )
 
-            startActivity(intent)
-
-            // Menutup Splash Screen
             finish()
         }
     }
