@@ -7,7 +7,6 @@
     android:background="#FFFFFF"
     android:padding="16dp">
 
-    <!-- HALAMAN ONBOARDING -->
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPagerOnboarding"
         android:layout_width="0dp"
@@ -15,9 +14,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/tvIndikator"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- INDIKATOR HALAMAN -->
     <TextView
         android:id="@+id/tvIndikator"
         android:layout_width="wrap_content"
@@ -29,9 +27,8 @@
         android:gravity="center"
         app:layout_constraintBottom_toTopOf="@id/btnLanjut"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- TOMBOL LANJUT -->
     <Button
         android:id="@+id/btnLanjut"
         android:layout_width="0dp"
@@ -42,6 +39,6 @@
         android:backgroundTint="#238342"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

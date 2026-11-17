@@ -17,13 +17,9 @@ class OnboardingFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentOnboardingBinding.inflate(
-            inflater,
-            container,
-            false
+            inflater, container, false
         )
-
         return binding.root
     }
 
@@ -36,23 +32,28 @@ class OnboardingFragment : Fragment() {
         val halaman = requireArguments().getInt("halaman")
 
         when (halaman) {
-
             0 -> {
-                binding.tvJudul.text = "Cari Lapangan Badminton"
+                binding.tvJudul.text =
+                    "Cari Lapangan Badminton"
+
                 binding.tvDeskripsi.text =
-                    "Temukan lapangan badminton favoritmu dengan mudah melalui aplikasi Lapangin."
+                    "Temukan GOR badminton favoritmu dengan mudah."
             }
 
             1 -> {
-                binding.tvJudul.text = "Booking Lebih Mudah"
+                binding.tvJudul.text =
+                    "Booking Lebih Mudah"
+
                 binding.tvDeskripsi.text =
-                    "Pilih GOR badminton, tanggal, dan jadwal bermain sesuai kebutuhanmu."
+                    "Pilih lapangan, tanggal, dan jam bermain sesuai kebutuhanmu."
             }
 
             2 -> {
-                binding.tvJudul.text = "Siap Bermain!"
+                binding.tvJudul.text =
+                    "Siap Bermain!"
+
                 binding.tvDeskripsi.text =
-                    "Lihat informasi pemesanan dan nikmati permainan badminton bersama temanmu."
+                    "Lihat informasi booking dan nikmati permainan badmintonmu."
             }
         }
     }
@@ -63,17 +64,12 @@ class OnboardingFragment : Fragment() {
     }
 
     companion object {
-
         fun newInstance(halaman: Int): OnboardingFragment {
-
-            val fragment = OnboardingFragment()
-
-            val bundle = Bundle()
-            bundle.putInt("halaman", halaman)
-
-            fragment.arguments = bundle
-
-            return fragment
+            return OnboardingFragment().apply {
+                arguments = Bundle().apply {
+                    putInt("halaman", halaman)
+                }
+            }
         }
     }
 }
