@@ -16,43 +16,15 @@ class SplashScreenActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash_screen)
 
         lifecycleScope.launch {
-
-            // Menampilkan splash screen selama 2 detik
             delay(2000)
 
-            // Mengecek apakah onboarding sudah selesai
-            val onboardingPref = getSharedPreferences(
-                "lapangin",
-                MODE_PRIVATE
+            // Mode demo: selalu membuka onboarding
+            val intent = Intent(
+                this@SplashScreenActivity,
+                OnboardingActivity::class.java
             )
 
-            val sudahOnboarding = onboardingPref.getBoolean(
-                "onboarding_selesai",
-                false
-            )
-
-            // Mengecek status login
-            val loginPref = getSharedPreferences(
-                "user_pref",
-                MODE_PRIVATE
-            )
-
-            val isLogin = loginPref.getBoolean(
-                "isLogin",
-                false
-            )
-
-            // Menentukan halaman tujuan
-            val tujuan = when {
-                !sudahOnboarding -> OnboardingActivity::class.java
-                isLogin -> BaseActivity::class.java
-                else -> AuthActivity::class.java
-            }
-
-            startActivity(
-                Intent(this@SplashScreenActivity, tujuan)
-            )
-
+            startActivity(intent)
             finish()
         }
     }
