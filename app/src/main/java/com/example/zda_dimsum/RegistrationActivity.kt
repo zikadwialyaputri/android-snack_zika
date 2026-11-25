@@ -6,11 +6,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.example.zda_dimsum.data.api.SupabaseAuth
+import kotlinx.coroutines.launch
 import java.util.Calendar
 
 class RegistrationActivity : AppCompatActivity() {
@@ -22,6 +24,8 @@ class RegistrationActivity : AppCompatActivity() {
     private lateinit var etUsername: EditText
     private lateinit var etPassword: EditText
     private lateinit var etConfirmPassword: EditText
+    private lateinit var btnPilihTanggal: Button
+    private lateinit var btnSelanjutnya: Button
 
     private var tanggalLahir = ""
 
@@ -36,114 +40,157 @@ class RegistrationActivity : AppCompatActivity() {
         etUsername = findViewById(R.id.etUsername)
         etPassword = findViewById(R.id.etPassword)
         etConfirmPassword = findViewById(R.id.etConfirmPassword)
+        btnPilihTanggal = findViewById(R.id.btnPilihTanggal)
+        btnSelanjutnya = findViewById(R.id.btnSelanjutnya)
 
-        val btnPilihTanggal =
-            findViewById<Button>(R.id.btnPilihTanggal)
-        val btnSelanjutnya =
-            findViewById<Button>(R.id.btnSelanjutnya)
         btnPilihTanggal.setOnClickListener {
             tampilkanDatePicker()
         }
+
         btnSelanjutnya.setOnClickListener {
-            simpanDataRegistrasi()
+            prosesRegistrasi()
         }
     }
 
     private fun tampilkanDatePicker() {
-        val kalender = Calendar.getInstance()
 
-        val dialog = DatePickerDialog(
+        val calendar = Calendar.getInstance()
+
+        val datePicker = DatePickerDialog(
             this,
-            { _, tahun, bulan, hari ->
+            { _, year, month, dayOfMonth ->
 
                 tanggalLahir = String.format(
-                    "%02d/%02d/%04d",
-                    hari,
-                    bulan + 1,
-                    tahun
+                    "%04d-%02d-%02d",
+                    year,
+                    month + 1,
+                    dayOfMonth
                 )
 
                 tvTanggalLahir.text = tanggalLahir
             },
-            kalender.get(Calendar.YEAR),
-            kalender.get(Calendar.MONTH),
-            kalender.get(Calendar.DAY_OF_MONTH)
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
         )
 
-        // Tanggal lahir tidak boleh melewati hari ini
-        dialog.datePicker.maxDate = System.currentTimeMillis()
-        dialog.show()
+        datePicker.datePicker.maxDate =
+            System.currentTimeMillis()
+
+        datePicker.show()
     }
 
-    private fun simpanDataRegistrasi() {
+    private fun prosesRegistrasi() {
 
         val nama = etNama.text.toString().trim()
         val email = etEmail.text.toString().trim()
         val username = etUsername.text.toString().trim()
         val password = etPassword.text.toString()
-        val confirmPassword = etConfirmPassword.text.toString()
-        val idJenisKelamin = rgJenisKelamin.checkedRadioButtonId
+        val confirmPassword =
+            etConfirmPassword.text.toString()
 
-        val jenisKelamin = if (idJenisKelamin != -1) {
-            findViewById<RadioButton>(
-                idJenisKelamin
-            ).text.toString()
-        } else {
-            ""
-        }
+        val jenisKelamin =
+            when (rgJenisKelamin.checkedRadioButtonId) {
+                R.id.rbLakiLaki -> "Laki-laki"
+                R.id.rbPerempuan -> "Perempuan"
+                else -> ""
+            }
 
         if (
-            nama.isEmpty() ||
-            email.isEmpty() ||
-            tanggalLahir.isEmpty() ||
-            jenisKelamin.isEmpty() ||
-            username.isEmpty() ||
-            password.isEmpty() ||
-            confirmPassword.isEmpty()
+            nama.isBlank() ||
+            email.isBlank() ||
+            username.isBlank() ||
+            tanggalLahir.isBlank() ||
+            jenisKelamin.isBlank() ||
+            password.isBlank() ||
+            confirmPassword.isBlank()
         ) {
             Toast.makeText(
                 this,
-                "Semua data harus diisi",
+                "Semua data wajib diisi!",
                 Toast.LENGTH_SHORT
             ).show()
             return
         }
-        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+
+        if (!android.util.Patterns.EMAIL_ADDRESS
+                .matcher(email).matches()
+        ) {
             etEmail.error = "Format email tidak valid"
-            etEmail.requestFocus()
             return
         }
+
+        if (password.length < 6) {
+            etPassword.error =
+                "Password minimal 6 karakter"
+            return
+        }
+
         if (password != confirmPassword) {
-            etConfirmPassword.error = "Password tidak cocok"
-            etConfirmPassword.requestFocus()
+            etConfirmPassword.error =
+                "Password tidak sama"
             return
         }
-        val sharedPref = getSharedPreferences(
-            "user_pref",
-            MODE_PRIVATE
-        )
-        sharedPref.edit().apply {
-            putString("nama", nama)
-            putString("email", email)
-            putString("tanggal_lahir", tanggalLahir)
-            putString("jenis_kelamin", jenisKelamin)
-            putString("username", username)
-            putString("password", password)
 
-            // Status login dibuat false setelah registrasi
-            putBoolean("isLogin", false)
+        btnSelanjutnya.isEnabled = false
+        btnSelanjutnya.text = "Memproses..."
 
-            apply()
+        lifecycleScope.launch {
+
+            try {
+
+                val response = SupabaseAuth.register(
+                    nama = nama,
+                    email = email,
+                    username = username,
+                    tanggalLahir = tanggalLahir,
+                    jenisKelamin = jenisKelamin,
+                    password = password
+                )
+
+                val userId = response.optString("user_id")
+
+                if (userId.isBlank()) {
+                    throw Exception(
+                        "Registrasi belum berhasil. ID pengguna kosong."
+                    )
+                }
+
+                Toast.makeText(
+                    this@RegistrationActivity,
+                    "Registrasi berhasil! Silakan login.",
+                    Toast.LENGTH_LONG
+                ).show()
+
+                val intent = Intent(
+                    this@RegistrationActivity,
+                    AuthActivity::class.java
+                )
+
+                intent.putExtra("registered_email", email)
+
+                startActivity(intent)
+                finish()
+
+            } catch (e: Exception) {
+
+                android.util.Log.e(
+                    "REGISTRATION_ERROR",
+                    "Registrasi gagal",
+                    e
+                )
+
+                Toast.makeText(
+                    this@RegistrationActivity,
+                    "Registrasi gagal: ${e.message}",
+                    Toast.LENGTH_LONG
+                ).show()
+
+            } finally {
+
+                btnSelanjutnya.isEnabled = true
+                btnSelanjutnya.text = "Selanjutnya"
+            }
         }
-
-        Toast.makeText(
-            this,
-            "Data registrasi berhasil disimpan",
-            Toast.LENGTH_SHORT
-        ).show()
-        startActivity(
-            Intent(this, VerificationActivity::class.java)
-        )
-        finish()
     }
 }
