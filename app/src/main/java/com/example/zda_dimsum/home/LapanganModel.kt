@@ -1,8 +1,15 @@
 package com.example.zda_dimsum.home
 
+import com.google.gson.annotations.SerializedName
+
 data class LapanganModel(
+    val id: Long? = null,
     val nama: String,
     val lokasi: String,
-    val harga: String,
-    val gambar: Int
+    val harga: Double,
+    val deskripsi: String? = null,
+    val gambar: String? = null,
+
+    @SerializedName("created_at")
+    val createdAt: String? = null
 )
