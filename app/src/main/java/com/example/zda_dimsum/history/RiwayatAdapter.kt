@@ -1,3 +1,4 @@
+
 package com.example.zda_dimsum.history
 
 import android.content.Context
@@ -6,25 +7,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.Toast
 import com.example.zda_dimsum.databinding.ItemRiwayatBinding
 
 class RiwayatAdapter(
     private val context: Context,
-    private val daftarRiwayat: List<RiwayatModel>
+    private val daftarRiwayat: List<RiwayatModel>,
+    private val onDetailClick: (RiwayatModel) -> Unit
 ) : BaseAdapter() {
 
-    override fun getCount(): Int {
-        return daftarRiwayat.size
-    }
+    override fun getCount(): Int = daftarRiwayat.size
 
-    override fun getItem(position: Int): RiwayatModel {
-        return daftarRiwayat[position]
-    }
+    override fun getItem(position: Int): RiwayatModel =
+        daftarRiwayat[position]
 
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
+    override fun getItemId(position: Int): Long =
+        daftarRiwayat[position].id
 
     override fun getView(
         position: Int,
@@ -32,43 +29,36 @@ class RiwayatAdapter(
         parent: ViewGroup
     ): View {
 
-        val binding: ItemRiwayatBinding
-
-        if (convertView == null) {
-            binding = ItemRiwayatBinding.inflate(
+        val binding = if (convertView == null) {
+            ItemRiwayatBinding.inflate(
                 LayoutInflater.from(context),
                 parent,
                 false
             )
-            binding.root.tag = binding
         } else {
-            binding = convertView.tag as ItemRiwayatBinding
+            ItemRiwayatBinding.bind(convertView)
         }
 
-        val riwayat = getItem(position)
+        val item = getItem(position)
 
-        binding.tvNama.text = riwayat.namaLapangan
-        binding.tvLokasi.text = riwayat.lokasi
-        binding.tvTanggal.text = riwayat.tanggal
-        binding.tvJam.text = riwayat.jam
-        binding.tvHarga.text = riwayat.harga
-        binding.tvStatus.text = riwayat.status
+        binding.tvNama.text = item.namaLapangan
+        binding.tvLokasi.text = item.lokasi
+        binding.tvTanggal.text = item.tanggal
+        binding.tvJam.text = item.jam
+        binding.tvHarga.text = item.harga
+        binding.tvStatus.text = item.status
 
         binding.tvStatus.setTextColor(
-            when (riwayat.status) {
-                "Akan Datang" -> Color.rgb(138, 106, 32)
-                "Selesai" -> Color.rgb(35, 139, 69)
-                "Dibatalkan" -> Color.rgb(192, 68, 64)
-                else -> Color.GRAY
+            when (item.status) {
+                "Menunggu" -> Color.rgb(190, 125, 35)
+                "Selesai" -> Color.rgb(40, 130, 75)
+                "Dibatalkan" -> Color.RED
+                else -> Color.DKGRAY
             }
         )
 
         binding.btnDetail.setOnClickListener {
-            Toast.makeText(
-                context,
-                "${riwayat.namaLapangan} - ${riwayat.status}",
-                Toast.LENGTH_SHORT
-            ).show()
+            onDetailClick(item)
         }
 
         return binding.root

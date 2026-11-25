@@ -7,7 +7,6 @@ import retrofit2.http.*
 
 interface LapanganApiService {
 
-    // READ
     @GET("rest/v1/lapangan")
     suspend fun getLapangan(
         @Header("apikey") apiKey: String,
@@ -15,7 +14,6 @@ interface LapanganApiService {
         @Query("order") order: String = "id.asc"
     ): List<LapanganModel>
 
-    // CREATE
     @POST("rest/v1/lapangan")
     @Headers("Prefer: return=representation")
     suspend fun tambahLapangan(
@@ -23,7 +21,6 @@ interface LapanganApiService {
         @Body data: LapanganModel
     ): Response<List<LapanganModel>>
 
-    // UPDATE
     @PATCH("rest/v1/lapangan")
     @Headers("Prefer: return=representation")
     suspend fun ubahLapangan(
@@ -32,7 +29,6 @@ interface LapanganApiService {
         @Body data: Map<String, @JvmSuppressWildcards Any?>
     ): Response<List<LapanganModel>>
 
-    // DELETE
     @DELETE("rest/v1/lapangan")
     @Headers("Prefer: return=representation")
     suspend fun hapusLapangan(

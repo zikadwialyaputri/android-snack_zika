@@ -14,283 +14,423 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.ProgressBar
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.example.zda_dimsum.BookingReminderReceiver
 import com.example.zda_dimsum.R
+import com.example.zda_dimsum.data.api.SupabaseClient
+import com.example.zda_dimsum.data.model.BookingModel
+import com.example.zda_dimsum.data.model.LapanganModel
+import kotlinx.coroutines.launch
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
 class BookingFragment : Fragment() {
 
-    private var selectedDate: Calendar? = null
-    private var selectedTime: String = ""
+    private lateinit var layoutDaftarLapangan: LinearLayout
+    private lateinit var layoutFormBooking: LinearLayout
+    private lateinit var containerDaftarLapangan: LinearLayout
+    private lateinit var progressLapangan: ProgressBar
+    private lateinit var tvKosongLapangan: TextView
 
-    private lateinit var dateViews: List<TextView>
-    private lateinit var timeViews: List<TextView>
+    private lateinit var tvBookingTitle: TextView
+    private lateinit var tvBookingLocation: TextView
+    private lateinit var tvHargaLapangan: TextView
+    private lateinit var btnPilihTanggal: TextView
+    private lateinit var spinnerJam: Spinner
     private lateinit var tvBookingSummary: TextView
+    private lateinit var tvTotalHarga: TextView
+    private lateinit var btnLanjutBooking: Button
+
+    private var daftarLapangan = listOf<LapanganModel>()
+    private var lapanganTerpilih: LapanganModel? = null
+
+    private var tanggalDatabase: String = ""
+    private var tanggalTampil: String = ""
+
+    private var pendingNamaLapangan = ""
+    private var pendingJam = ""
+    private var pendingWaktu: Calendar? = null
+
+    private val formatDatabase = SimpleDateFormat(
+        "yyyy-MM-dd",
+        Locale.getDefault()
+    )
+
+    private val formatTampil = SimpleDateFormat(
+        "dd MMMM yyyy",
+        Locale("id", "ID")
+    )
+
+    private val daftarJam = listOf(
+        "14:00", "15:00", "16:00", "17:00",
+        "18:00", "19:00", "20:00", "21:00"
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(
-            R.layout.fragment_booking,
-            container,
-            false
-        )
+        return inflater.inflate(R.layout.fragment_booking, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tvBookingSummary =
-            view.findViewById(R.id.tvBookingSummary)
+        layoutDaftarLapangan = view.findViewById(R.id.layoutDaftarLapangan)
+        layoutFormBooking = view.findViewById(R.id.layoutFormBooking)
+        containerDaftarLapangan = view.findViewById(R.id.containerDaftarLapangan)
+        progressLapangan = view.findViewById(R.id.progressLapangan)
+        tvKosongLapangan = view.findViewById(R.id.tvKosongLapangan)
 
-        val dateSen = view.findViewById<TextView>(R.id.dateSen)
-        val dateSel = view.findViewById<TextView>(R.id.dateSel)
-        val dateRab = view.findViewById<TextView>(R.id.dateRab)
-        val dateKam = view.findViewById<TextView>(R.id.dateKam)
-        val dateJum = view.findViewById<TextView>(R.id.dateJum)
-        val dateSab = view.findViewById<TextView>(R.id.dateSab)
+        tvBookingTitle = view.findViewById(R.id.tvBookingTitle)
+        tvBookingLocation = view.findViewById(R.id.tvBookingLocation)
+        tvHargaLapangan = view.findViewById(R.id.tvHargaLapangan)
+        btnPilihTanggal = view.findViewById(R.id.btnPilihTanggal)
+        spinnerJam = view.findViewById(R.id.spinnerJam)
+        tvBookingSummary = view.findViewById(R.id.tvBookingSummary)
+        tvTotalHarga = view.findViewById(R.id.tvTotalHarga)
+        btnLanjutBooking = view.findViewById(R.id.btnLanjutBooking)
 
-        dateViews = listOf(
-            dateSen, dateSel, dateRab,
-            dateKam, dateJum, dateSab
+        val adapterJam = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            daftarJam
         )
-
-        val time1400 = view.findViewById<TextView>(R.id.time1400)
-        val time1500 = view.findViewById<TextView>(R.id.time1500)
-        val time1600 = view.findViewById<TextView>(R.id.time1600)
-        val time1700 = view.findViewById<TextView>(R.id.time1700)
-        val time1800 = view.findViewById<TextView>(R.id.time1800)
-        val time1900 = view.findViewById<TextView>(R.id.time1900)
-        val time2000 = view.findViewById<TextView>(R.id.time2000)
-        val time2100 = view.findViewById<TextView>(R.id.time2100)
-
-        timeViews = listOf(
-            time1400, time1500, time1600, time1700,
-            time1800, time1900, time2000, time2100
+        adapterJam.setDropDownViewResource(
+            android.R.layout.simple_spinner_dropdown_item
         )
+        spinnerJam.adapter = adapterJam
 
-        setupDateChoices()
-
-        dateViews.forEachIndexed { index, textView ->
-            textView.setOnClickListener {
-                selectDate(index, textView)
+        view.findViewById<TextView>(R.id.btnKembaliLapangan)
+            .setOnClickListener {
+                tampilkanDaftarLapangan()
             }
+
+        btnPilihTanggal.setOnClickListener {
+            bukaDatePicker()
         }
-
-        timeViews.forEach { textView ->
-            textView.setOnClickListener {
-                selectTime(textView.text.toString(), textView)
-            }
-        }
-
-        val tvLihatKalender =
-            view.findViewById<TextView>(R.id.tvLihatKalender)
-
-        tvLihatKalender.setOnClickListener {
-            showDatePicker()
-        }
-
-        val btnLanjutBooking =
-            view.findViewById<TextView>(R.id.btnLanjutBooking)
-
-        btnLanjutBooking.isEnabled = true
-        btnLanjutBooking.isClickable = true
 
         btnLanjutBooking.setOnClickListener {
+            simpanBooking()
+        }
+
+        tampilkanDaftarLapangan()
+        ambilLapangan()
+    }
+
+    private fun ambilLapangan() {
+        progressLapangan.visibility = View.VISIBLE
+        tvKosongLapangan.visibility = View.GONE
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                daftarLapangan = SupabaseClient.lapanganService
+                    .getLapangan(SupabaseClient.API_KEY)
+
+                progressLapangan.visibility = View.GONE
+                tampilkanKartuLapangan()
+
+            } catch (e: Exception) {
+                progressLapangan.visibility = View.GONE
+                tvKosongLapangan.visibility = View.VISIBLE
+                tvKosongLapangan.text =
+                    "Gagal mengambil data lapangan: ${e.message}"
+            }
+        }
+    }
+
+    private fun tampilkanKartuLapangan() {
+        containerDaftarLapangan.removeAllViews()
+
+        if (daftarLapangan.isEmpty()) {
+            tvKosongLapangan.visibility = View.VISIBLE
+            tvKosongLapangan.text = "Belum ada lapangan tersedia"
+            return
+        }
+
+        tvKosongLapangan.visibility = View.GONE
+
+        daftarLapangan.forEach { lapangan ->
+
+            val kartu = LinearLayout(requireContext()).apply {
+                orientation = LinearLayout.VERTICAL
+                setPadding(20, 20, 20, 20)
+                setBackgroundColor(
+                    android.graphics.Color.WHITE
+                )
+                elevation = 4f
+            }
+
+            val nama = TextView(requireContext()).apply {
+                text = lapangan.nama
+                textSize = 18f
+                setTextColor(
+                    android.graphics.Color.rgb(23, 63, 50)
+                )
+                setTypeface(null, android.graphics.Typeface.BOLD)
+            }
+
+            val lokasi = TextView(requireContext()).apply {
+                text = lapangan.lokasi
+                textSize = 14f
+                setTextColor(
+                    android.graphics.Color.DKGRAY
+                )
+                setPadding(0, 8, 0, 0)
+            }
+
+            val harga = TextView(requireContext()).apply {
+                text = "Rp ${formatHarga(lapangan.harga)} / jam"
+                textSize = 16f
+                setTextColor(
+                    android.graphics.Color.rgb(40, 118, 83)
+                )
+                setPadding(0, 10, 0, 12)
+                setTypeface(null, android.graphics.Typeface.BOLD)
+            }
+
+            val tombol = Button(requireContext()).apply {
+                text = "Pilih Lapangan"
+                setBackgroundTintList(
+                    android.content.res.ColorStateList.valueOf(
+                        android.graphics.Color.rgb(40, 118, 83)
+                    )
+                )
+                setTextColor(android.graphics.Color.WHITE)
+                setOnClickListener {
+                    pilihLapangan(lapangan)
+                }
+            }
+
+            kartu.addView(nama)
+            kartu.addView(lokasi)
+            kartu.addView(harga)
+            kartu.addView(tombol)
+
+            val params = LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            params.bottomMargin = 20
+
+            containerDaftarLapangan.addView(kartu, params)
+        }
+    }
+
+    private fun pilihLapangan(lapangan: LapanganModel) {
+        lapanganTerpilih = lapangan
+
+        tvBookingTitle.text = lapangan.nama
+        tvBookingLocation.text = lapangan.lokasi
+        tvHargaLapangan.text =
+            "Rp ${formatHarga(lapangan.harga)} / jam"
+
+        tanggalDatabase = ""
+        tanggalTampil = ""
+        btnPilihTanggal.text = "Pilih tanggal booking"
+
+        spinnerJam.setSelection(0)
+        updateRingkasan()
+
+        layoutDaftarLapangan.visibility = View.GONE
+        layoutFormBooking.visibility = View.VISIBLE
+    }
+
+    private fun tampilkanDaftarLapangan() {
+        layoutFormBooking.visibility = View.GONE
+        layoutDaftarLapangan.visibility = View.VISIBLE
+        lapanganTerpilih = null
+    }
+
+    private fun bukaDatePicker() {
+        val kalender = Calendar.getInstance()
+
+        DatePickerDialog(
+            requireContext(),
+            { _, tahun, bulan, hari ->
+
+                val tanggal = Calendar.getInstance().apply {
+                    set(tahun, bulan, hari)
+                }
+
+                val hariIni = Calendar.getInstance().apply {
+                    set(Calendar.HOUR_OF_DAY, 0)
+                    set(Calendar.MINUTE, 0)
+                    set(Calendar.SECOND, 0)
+                    set(Calendar.MILLISECOND, 0)
+                }
+
+                if (tanggal.before(hariIni)) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Tanggal tidak boleh sudah lewat",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return@DatePickerDialog
+                }
+
+                tanggalDatabase = formatDatabase.format(tanggal.time)
+                tanggalTampil = formatTampil.format(tanggal.time)
+
+                btnPilihTanggal.text = tanggalTampil
+                updateRingkasan()
+
+            },
+            kalender.get(Calendar.YEAR),
+            kalender.get(Calendar.MONTH),
+            kalender.get(Calendar.DAY_OF_MONTH)
+        ).apply {
+            datePicker.minDate = System.currentTimeMillis()
+        }.show()
+    }
+
+    private fun updateRingkasan() {
+        val lapangan = lapanganTerpilih ?: return
+        val jam = spinnerJam.selectedItem?.toString() ?: "-"
+
+        tvBookingSummary.text =
+            "Lapangan: ${lapangan.nama}\n" +
+                    "Tanggal: ${if (tanggalTampil.isBlank()) "-" else tanggalTampil}\n" +
+                    "Jam: $jam"
+
+        tvTotalHarga.text =
+            "Total: Rp ${formatHarga(lapangan.harga)}"
+    }
+
+    private fun simpanBooking() {
+        val lapangan = lapanganTerpilih
+
+        if (lapangan == null) {
             Toast.makeText(
                 requireContext(),
-                "TOMBOL BOOKING BERHASIL DIKLIK!",
+                "Pilih lapangan terlebih dahulu",
                 Toast.LENGTH_SHORT
             ).show()
-
-            if (selectedDate == null) {
-                Toast.makeText(
-                    requireContext(),
-                    "Pilih tanggal terlebih dahulu",
-                    Toast.LENGTH_SHORT
-                ).show()
-                return@setOnClickListener
-            }
-
-            if (selectedTime.isBlank()) {
-                Toast.makeText(
-                    requireContext(),
-                    "Pilih jam terlebih dahulu",
-                    Toast.LENGTH_SHORT
-                ).show()
-                return@setOnClickListener
-            }
-
-            if (!requestNotificationPermissionIfNeeded()) {
-                return@setOnClickListener
-            }
-
-            scheduleBookingReminder()
-        }
-    }
-
-    private fun setupDateChoices() {
-        val formatHari = SimpleDateFormat(
-            "EEE", Locale("id", "ID")
-        )
-        val formatTanggal = SimpleDateFormat(
-            "dd", Locale("id", "ID")
-        )
-
-        dateViews.forEachIndexed { index, textView ->
-            val calendar = Calendar.getInstance()
-            calendar.add(Calendar.DAY_OF_MONTH, index)
-
-            val namaHari = formatHari.format(calendar.time)
-                .replace(".", "")
-                .replaceFirstChar { it.uppercase() }
-
-            val nomorTanggal =
-                formatTanggal.format(calendar.time)
-
-            textView.text = "$namaHari\n$nomorTanggal"
-        }
-
-        resetDateViews()
-        updateBookingSummary()
-    }
-
-    private fun selectDate(index: Int, selectedView: TextView) {
-        val calendar = Calendar.getInstance()
-        calendar.add(Calendar.DAY_OF_MONTH, index)
-        calendar.set(Calendar.HOUR_OF_DAY, 0)
-        calendar.set(Calendar.MINUTE, 0)
-        calendar.set(Calendar.SECOND, 0)
-        calendar.set(Calendar.MILLISECOND, 0)
-
-        selectedDate = calendar
-
-        resetDateViews()
-
-        selectedView.setBackgroundResource(
-            R.drawable.bg_date_selected
-        )
-        selectedView.setTextColor(
-            ContextCompat.getColor(
-                requireContext(),
-                android.R.color.white
-            )
-        )
-
-        updateBookingSummary()
-    }
-
-    private fun selectTime(time: String, selectedView: TextView) {
-        selectedTime = time
-
-        resetTimeViews()
-
-        selectedView.setBackgroundResource(
-            R.drawable.bg_time_selected
-        )
-        selectedView.setTextColor(
-            ContextCompat.getColor(
-                requireContext(),
-                android.R.color.white
-            )
-        )
-
-        updateBookingSummary()
-    }
-
-    private fun resetDateViews() {
-        dateViews.forEach { textView ->
-            textView.setBackgroundResource(
-                R.drawable.bg_date_normal
-            )
-            textView.setTextColor(
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.lapangin_green
-                )
-            )
-        }
-    }
-
-    private fun resetTimeViews() {
-        timeViews.forEach { textView ->
-            textView.setBackgroundResource(
-                R.drawable.bg_time_normal
-            )
-            textView.setTextColor(
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.lapangin_green
-                )
-            )
-        }
-    }
-
-    private fun showDatePicker() {
-        val today = Calendar.getInstance()
-
-        val dialog = DatePickerDialog(
-            requireContext(),
-            { _, year, month, day ->
-                val calendar = Calendar.getInstance()
-                calendar.set(
-                    year, month, day, 0, 0, 0
-                )
-                calendar.set(Calendar.MILLISECOND, 0)
-
-                selectedDate = calendar
-
-                // Tanggal dari kalender bisa di luar enam pilihan.
-                resetDateViews()
-                updateBookingSummary()
-            },
-            today.get(Calendar.YEAR),
-            today.get(Calendar.MONTH),
-            today.get(Calendar.DAY_OF_MONTH)
-        )
-
-        dialog.datePicker.minDate = today.timeInMillis
-        dialog.show()
-    }
-
-    private fun updateBookingSummary() {
-        val date = selectedDate
-
-        if (date == null && selectedTime.isEmpty()) {
-            tvBookingSummary.text = "Pilih tanggal dan jam"
             return
         }
 
-        if (date == null) {
-            tvBookingSummary.text = "Pilih tanggal • $selectedTime"
+        if (tanggalDatabase.isBlank()) {
+            Toast.makeText(
+                requireContext(),
+                "Pilih tanggal booking terlebih dahulu",
+                Toast.LENGTH_SHORT
+            ).show()
             return
         }
 
-        val dateFormat = SimpleDateFormat(
-            "EEEE, dd MMMM",
-            Locale("id", "ID")
+        val jam = spinnerJam.selectedItem.toString()
+
+        val preferences = requireContext()
+            .getSharedPreferences("user_pref", Context.MODE_PRIVATE)
+
+        val userId = preferences.getString("user_id", null)
+
+        if (userId.isNullOrBlank()) {
+            Toast.makeText(
+                requireContext(),
+                "Silakan login kembali",
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+
+        val waktuBooking = Calendar.getInstance()
+        val bagianJam = jam.split(":")
+        waktuBooking.set(
+            tanggalDatabase.substring(0, 4).toInt(),
+            tanggalDatabase.substring(5, 7).toInt() - 1,
+            tanggalDatabase.substring(8, 10).toInt(),
+            bagianJam[0].toInt(),
+            bagianJam[1].toInt(),
+            0
         )
 
-        val formattedDate = dateFormat.format(date.time)
+        if (waktuBooking.timeInMillis <= System.currentTimeMillis()) {
+            Toast.makeText(
+                requireContext(),
+                "Jam booking sudah terlewati",
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
 
-        tvBookingSummary.text = if (selectedTime.isEmpty()) {
-            "$formattedDate • Pilih jam"
-        } else {
-            "$formattedDate • $selectedTime"
+        val dataBooking = BookingModel(
+            userId = userId,
+            lapanganId = lapangan.id
+                ?: throw IllegalStateException("ID lapangan tidak ditemukan"),
+            tanggal = tanggalDatabase,
+            jam = jam,
+            totalHarga = lapangan.harga,
+            status = "Menunggu"
+        )
+
+        btnLanjutBooking.isEnabled = false
+        btnLanjutBooking.text = "Menyimpan..."
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                val response = SupabaseClient.bookingService
+                    .tambahBooking(
+                        SupabaseClient.API_KEY,
+                        dataBooking
+                    )
+
+                if (!response.isSuccessful) {
+                    throw Exception(
+                        response.errorBody()?.string()
+                            ?: "Gagal menyimpan booking"
+                    )
+                }
+
+                pendingNamaLapangan = lapangan.nama
+                pendingJam = jam
+                pendingWaktu = waktuBooking
+
+                AlertDialog.Builder(requireContext())
+                    .setTitle("Booking Berhasil!")
+                    .setMessage(
+                        "Booking lapangan ${lapangan.nama} berhasil disimpan.\n\n" +
+                                "Status: Menunggu\n" +
+                                "Tanggal: $tanggalTampil\n" +
+                                "Jam: $jam"
+                    )
+                    .setCancelable(false)
+                    .setPositiveButton("Lihat Riwayat") { _, _ ->
+                        jadwalkanPengingat()
+                        bukaTabRiwayat()
+                    }
+                    .show()
+
+            } catch (e: Exception) {
+                Toast.makeText(
+                    requireContext(),
+                    "Booking gagal: ${e.message}",
+                    Toast.LENGTH_LONG
+                ).show()
+            } finally {
+                btnLanjutBooking.isEnabled = true
+                btnLanjutBooking.text = "Lanjut Booking"
+            }
         }
     }
 
-    private fun requestNotificationPermissionIfNeeded(): Boolean {
-        if (
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+    private fun jadwalkanPengingat() {
+        val waktu = pendingWaktu ?: return
+
+        if (Build.VERSION.SDK_INT >= 33 &&
             ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.POST_NOTIFICATIONS
@@ -298,45 +438,8 @@ class BookingFragment : Fragment() {
         ) {
             requestPermissions(
                 arrayOf(Manifest.permission.POST_NOTIFICATIONS),
-                101
+                200
             )
-            return false
-        }
-
-        return true
-    }
-
-    private fun scheduleBookingReminder() {
-        val date = selectedDate ?: return
-
-        val timeParts = selectedTime.split(":")
-        if (timeParts.size != 2) {
-            Toast.makeText(
-                requireContext(),
-                "Format jam booking tidak valid",
-                Toast.LENGTH_SHORT
-            ).show()
-            return
-        }
-
-        val bookingTime = date.clone() as Calendar
-        bookingTime.set(
-            Calendar.HOUR_OF_DAY,
-            timeParts[0].toInt()
-        )
-        bookingTime.set(
-            Calendar.MINUTE,
-            timeParts[1].toInt()
-        )
-        bookingTime.set(Calendar.SECOND, 0)
-        bookingTime.set(Calendar.MILLISECOND, 0)
-
-        if (bookingTime.timeInMillis <= System.currentTimeMillis()) {
-            Toast.makeText(
-                requireContext(),
-                "Tanggal atau jam booking sudah lewat",
-                Toast.LENGTH_SHORT
-            ).show()
             return
         }
 
@@ -344,52 +447,93 @@ class BookingFragment : Fragment() {
             requireContext(),
             BookingReminderReceiver::class.java
         ).apply {
-            putExtra("NAMA_LAPANGAN", "GOR WIRA")
-            putExtra("JAM_BOOKING", selectedTime)
+            putExtra("NAMA_LAPANGAN", pendingNamaLapangan)
+            putExtra("JAM_BOOKING", pendingJam)
         }
 
         val pendingIntent = PendingIntent.getBroadcast(
             requireContext(),
-            2001,
+            waktu.timeInMillis.toInt(),
             intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or
-                    PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
         val alarmManager = requireContext()
             .getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        // Tes: pengingat muncul 10 detik setelah tombol ditekan.
-        val testTriggerTime = System.currentTimeMillis() + 10_000L
+        alarmManager.setAndAllowWhileIdle(
+            AlarmManager.RTC_WAKEUP,
+            waktu.timeInMillis,
+            pendingIntent
+        )
+    }
 
-        try {
-            alarmManager.setAndAllowWhileIdle(
-                AlarmManager.RTC_WAKEUP,
-                testTriggerTime,
-                pendingIntent
-            )
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(
+            requestCode,
+            permissions,
+            grantResults
+        )
 
-            Toast.makeText(
-                requireContext(),
-                "Booking diproses! Pengingat muncul sekitar 10 detik lagi.",
-                Toast.LENGTH_LONG
-            ).show()
-        } catch (e: SecurityException) {
-            if (
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
-                !alarmManager.canScheduleExactAlarms()
-            ) {
-                val settingsIntent = Intent(
-                    Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM
-                )
-                startActivity(settingsIntent)
-            } else {
-                Toast.makeText(
-                    requireContext(),
-                    "Alarm gagal dijadwalkan: ${e.message}",
-                    Toast.LENGTH_LONG
-                ).show()
+        if (requestCode == 200 &&
+            grantResults.isNotEmpty() &&
+            grantResults[0] == PackageManager.PERMISSION_GRANTED
+        ) {
+            jadwalkanPengingat()
+        }
+    }
+
+    private fun bukaTabRiwayat() {
+        val activity = activity ?: return
+
+        // Mencari BottomNavigationView yang digunakan oleh BaseActivity.
+        val bottomNavigation = cariBottomNavigation(activity.window.decorView)
+
+        if (bottomNavigation != null) {
+            val menuItem = (0 until bottomNavigation.menu.size())
+                .map { bottomNavigation.menu.getItem(it) }
+                .firstOrNull {
+                    it.title.toString().contains(
+                        "riwayat",
+                        ignoreCase = true
+                    )
+                }
+
+            if (menuItem != null) {
+                bottomNavigation.selectedItemId = menuItem.itemId
+                return
             }
         }
+
+        Toast.makeText(
+            requireContext(),
+            "Booking tersimpan. Silakan buka tab Riwayat.",
+            Toast.LENGTH_LONG
+        ).show()
+    }
+
+    private fun cariBottomNavigation(view: View): com.google.android.material.bottomnavigation.BottomNavigationView? {
+        if (view is com.google.android.material.bottomnavigation.BottomNavigationView) {
+            return view
+        }
+
+        if (view is ViewGroup) {
+            for (i in 0 until view.childCount) {
+                val hasil = cariBottomNavigation(view.getChildAt(i))
+                if (hasil != null) return hasil
+            }
+        }
+
+        return null
+    }
+
+    private fun formatHarga(harga: Double): String {
+        return NumberFormat.getNumberInstance(
+            Locale("id", "ID")
+        ).format(harga)
     }
 }

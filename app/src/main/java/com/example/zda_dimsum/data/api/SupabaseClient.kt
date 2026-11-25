@@ -6,23 +6,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object SupabaseClient {
 
-    const val BASE_URL =
-        "https://nbpajtwhzoyrsivricfz.supabase.co/"
-
-    const val API_KEY =
-        "sb_publishable_oGB2_412-P4KJXoTe-VFag_X_W_fYLm"
+    const val BASE_URL = "https://nbpajtwhzoyrsivricfz.supabase.co/"
+    const val API_KEY = "sb_publishable_oGB2_412-P4KJXoTe-VFag_X_W_fYLm"
 
     val retrofit: Retrofit by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(
-                GsonConverterFactory.create()
-            )
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
-    }
-
-    val authService: AuthApiService by lazy {
-        retrofit.create(AuthApiService::class.java)
     }
 
     val lapanganService: LapanganApiService by lazy {
@@ -31,5 +22,10 @@ object SupabaseClient {
 
     val bookingService: BookingApiService by lazy {
         retrofit.create(BookingApiService::class.java)
+    }
+
+    // Service untuk registrasi dan login
+    val authService: AuthApiService by lazy {
+        retrofit.create(AuthApiService::class.java)
     }
 }

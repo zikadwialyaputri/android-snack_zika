@@ -7,82 +7,59 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.util.Log
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 
 class BookingReminderReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
 
-        val namaLapangan =
-            intent.getStringExtra("NAMA_LAPANGAN") ?: "GOR WIRA"
+        val namaLapangan = intent.getStringExtra("NAMA_LAPANGAN")
+            ?: "Lapangan"
 
-        val jamBooking =
-            intent.getStringExtra("JAM_BOOKING") ?: "-"
+        val jamBooking = intent.getStringExtra("JAM_BOOKING")
+            ?: "-"
 
-        val channelId = "booking_reminder_channel"
+        val channelId = "booking_reminder"
 
-        // Membuat channel notifikasi untuk Android 8.0 ke atas
+        val notificationManager =
+            context.getSystemService(
+                Context.NOTIFICATION_SERVICE
+            ) as NotificationManager
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
             val channel = NotificationChannel(
                 channelId,
-                "Pengingat Booking Lapangin",
+                "Pengingat Booking",
                 NotificationManager.IMPORTANCE_HIGH
-            ).apply {
-                description =
-                    "Notifikasi pengingat jadwal booking lapangan"
-            }
+            )
 
-            val notificationManager =
-                context.getSystemService(
-                    Context.NOTIFICATION_SERVICE
-                ) as NotificationManager
+            channel.description = "Notifikasi pengingat jadwal booking lapangan"
 
             notificationManager.createNotificationChannel(channel)
         }
 
-        // Membuat notifikasi booking
         val notification = NotificationCompat.Builder(
             context,
             channelId
         )
-            .setSmallIcon(R.drawable.ic_booking)
-            .setContentTitle("Pengingat Booking Lapangin 🏸")
+            .setSmallIcon(R.drawable.ic_notification)
+            .setContentTitle("Pengingat Booking Lapangan")
             .setContentText(
-                "Booking kamu di $namaLapangan pukul $jamBooking WIB. Jangan sampai terlambat!"
+                "Booking $namaLapangan dimulai pukul $jamBooking"
             )
             .setStyle(
                 NotificationCompat.BigTextStyle()
                     .bigText(
-                        "Booking kamu di $namaLapangan pukul $jamBooking WIB. " +
-                                "Jangan sampai terlambat!"
+                        "Jangan lupa! Booking $namaLapangan kamu dimulai pukul $jamBooking."
                     )
             )
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
             .build()
 
-        // Menampilkan notifikasi dan mencatat error jika gagal
-        try {
-
-            NotificationManagerCompat
-                .from(context)
-                .notify(1001, notification)
-
-            Log.d(
-                "BookingReminder",
-                "Notifikasi berhasil dikirim"
-            )
-
-        } catch (e: SecurityException) {
-
-            Log.e(
-                "BookingReminder",
-                "Izin notifikasi belum diberikan",
-                e
-            )
-        }
+        notificationManager.notify(
+            System.currentTimeMillis().toInt(),
+            notification
+        )
     }
 }
